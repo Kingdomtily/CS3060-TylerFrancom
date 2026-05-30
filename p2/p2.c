@@ -10,7 +10,7 @@ https://www.geeksforgeeks.org/c/fork-system-call/*/
 #include<sys/types.h>
 #include<sys/wait.h>
 
-int main(){
+int main(int argc, char *argv[]){
     pid_t my_fork; /*Creates the ID variable*/
     int status;
 
