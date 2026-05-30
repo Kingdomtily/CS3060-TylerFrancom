@@ -17,7 +17,7 @@ int main(){
 
     /*need to be sure the fork worked correctly*/
     if (my_fork < 0){
-        fpritnf("Fork failed!");
-        return 1
+        printf("Fork failed!");
+        return 1;
     }
 }
