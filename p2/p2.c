@@ -12,6 +12,7 @@ https://www.geeksforgeeks.org/c/fork-system-call/*/
 
 int main(){
     pid_t my_fork; /*Creates the ID variable*/
+    int status;
 
     my_fork = fork();
 
@@ -22,10 +23,12 @@ int main(){
     }
     else if (my_fork == 0){
         printf("I am your secret child. My ID is %d \n", getpid());
-        return 1;
+        return 0;
     }
     else{
         printf("Pretty sure this is parent. Waiting for dumb ol'%d \n", my_fork);
-        return 1;
+        waitpid(my_fork, &status, 0);
+        printf("We can keep going now.");
+        return 0;
     }
 }
