@@ -21,11 +21,11 @@ int main(){
         return 1;
     }
     else if (my_fork == 0){
-        printf("I am your secret child. My ID is %d", getpid());
+        printf("I am your secret child. My ID is %d \n", getpid());
         return 1;
     }
     else{
-        printf("Well why would this be happening");
+        printf("Pretty sure this is parent. Waiting for dumb ol'%d \n", my_fork);
         return 1;
     }
 }
