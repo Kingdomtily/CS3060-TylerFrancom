@@ -29,12 +29,15 @@ int main(int argc, char *argv[]){
         else if (argc == 2) {
             printf("Child was started. One argument provided. Lets run execlp() bois. \n");
             execlp(argv[1], argv[1], NULL);
+            perror("execlp failed");
+            return 1;
         }
         
         else if (argc > 2){
             printf("Child was started. more than one argument given. Running execvp(). \n");
             execvp(argv[1], &argv[1]);
-            return 0;
+            perror("execlp failed");
+            return 1;
         }
         
     }
