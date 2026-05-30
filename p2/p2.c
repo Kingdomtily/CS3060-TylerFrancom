@@ -19,5 +19,14 @@ int main(){
     if (my_fork < 0){
         printf("Fork failed!");
         return 1;
+
+    elif (my_fork == 0){
+        printf("I am your secret child. My ID is %d", getpid());
+        return 1;
+    }
+    else{
+        printf("Well why would this be happening");
+        return 1;
+    }
     }
 }
