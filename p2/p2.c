@@ -22,8 +22,21 @@ int main(int argc, char *argv[]){
         return 1;
     }
     else if (my_fork == 0){
-        printf("I am your secret child. My ID is %d \n", getpid());
-        return 0;
+        if(argc == 1){
+            printf("Child was started. No arguments were provided. Terminating child o7. \n");
+            return 0;
+        }
+        else if (argc == 2) {
+            printf("Child was started. One argument provided. Lets run execlp() bois. \n");
+            execlp(argv[1], argv[1], NULL);
+        }
+        
+        else if (argc > 2){
+            printf("Child was started. more than one argument given. Running execvp(). \n");
+            execvp(argv[1], &argv[1]);
+            return 0;
+        }
+        
     }
     else{
         printf("Pretty sure this is parent. Waiting for dumb ol'%d \n", my_fork);
