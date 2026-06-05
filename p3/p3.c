@@ -5,8 +5,13 @@ Program 3*/
 #include <pthread.h>
 #include <stdio.h>
 
+typedef struct {
+    int original;
+    int factors[64];
+    int count;
+} FactorResult;
 
-void getFactors(int number){
+void getFactors(int number, FactorResult *result){
     while (number%2 ==0){
         printf("%d ", 2);
         number = number/2;
@@ -17,7 +22,7 @@ void getFactors(int number){
             number = number/i;
         }
     }
-    if (number > 2);
+    if (number > 2)
     printf("%d ", number);
 }
 
