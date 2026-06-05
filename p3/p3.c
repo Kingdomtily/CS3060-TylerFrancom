@@ -28,6 +28,16 @@ void getFactors(int number, FactorResult *result){
 
 int main(){
     int test = 315;
-    getFactors(test);
-    return 0;
+    FactorResult result;
+    result.count = 0;
+    result.original = test;
+
+    getFactors(test, &result);
+
+    printf("%d:", result.original);
+
+    for (int i = 0; i < result.count; i++) {
+    printf(" %d", result.factors[i]);
+    }
+    printf("\n");
 }
