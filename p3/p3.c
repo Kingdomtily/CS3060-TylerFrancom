@@ -14,6 +14,7 @@ typedef struct {
 
 void getFactors(int number, FactorResult *result){
     result->original = number;
+    result->count =0;
     while (number%2 ==0){
         result->factors[result->count++] = 2;
         number = number/2;
@@ -42,34 +43,35 @@ void *factorThread(void *arg)
     return result;
 }
 
-int main() {
-    pthread_t threadid;
-
-    int test = 315;
-
+int main(int argc, char *argv[]) {
+    if (argc < 2) {
+    printf("Usage:./p3 <number to factor>...\n");
+    return 1;
+    }
+    int count = argc - 1;
+    pthread_t threads[count];
+    int values[count];
+    for (int i = 0; i < count; i++) {
+    values[i] = atoi(argv[i + 1]);
     pthread_create(
-        &threadid,
+        &threads[i],
         NULL,
         factorThread,
-        &test
+        &values[i]
     );
-
+}
+    for (int i = 0; i < count; i++) {
     FactorResult *result;
-
     pthread_join(
-        threadid,
+        threads[i],
         (void **)&result
     );
-
     printf("%d:", result->original);
-
-    for (int i = 0; i < result->count; i++) {
-        printf(" %d", result->factors[i]);
+    for (int j = 0; j < result->count; j++) {
+        printf(" %d", result->factors[j]);
     }
-
     printf("\n");
-
     free(result);
-
+    }
     return 0;
 }
