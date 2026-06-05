@@ -13,17 +13,17 @@ typedef struct {
 
 void getFactors(int number, FactorResult *result){
     while (number%2 ==0){
-        printf("%d ", 2);
+        result->factors[result->count++] = 2;
         number = number/2;
     }
     for (int i =3; i*i <=number; i = i+2){
         while (number % i == 0){
-            printf("%d ", i);
+            result->factors[result->count++] = i;
             number = number/i;
         }
     }
     if (number > 2)
-    printf("%d ", number);
+    result->factors[result->count++] = number;
 }
 
 int main(){
