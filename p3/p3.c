@@ -4,6 +4,7 @@ Program 3*/
 
 #include <pthread.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef struct {
     int original;
@@ -12,6 +13,7 @@ typedef struct {
 } FactorResult;
 
 void getFactors(int number, FactorResult *result){
+    result->original = number;
     while (number%2 ==0){
         result->factors[result->count++] = 2;
         number = number/2;
@@ -26,18 +28,48 @@ void getFactors(int number, FactorResult *result){
     result->factors[result->count++] = number;
 }
 
-int main(){
+void *factorThread(void *arg)
+{
+    int number = *(int *)arg;
+
+    FactorResult *result =
+        malloc(sizeof(FactorResult));
+
+    result->count = 0;
+
+    getFactors(number, result);
+
+    return result;
+}
+
+int main() {
+    pthread_t threadid;
+
     int test = 315;
-    FactorResult result;
-    result.count = 0;
-    result.original = test;
 
-    getFactors(test, &result);
+    pthread_create(
+        &threadid,
+        NULL,
+        factorThread,
+        &test
+    );
 
-    printf("%d:", result.original);
+    FactorResult *result;
 
-    for (int i = 0; i < result.count; i++) {
-    printf(" %d", result.factors[i]);
+    pthread_join(
+        threadid,
+        (void **)&result
+    );
+
+    printf("%d:", result->original);
+
+    for (int i = 0; i < result->count; i++) {
+        printf(" %d", result->factors[i]);
     }
+
     printf("\n");
+
+    free(result);
+
+    return 0;
 }
