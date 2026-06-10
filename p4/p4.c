@@ -54,6 +54,34 @@ void sjf(int arrivalTime[], int burstTime[], int n){
     int completed[MAX_PROCESSES];
     int firstRun[MAX_PROCESSES];
     int finish[MAX_PROCESSES];
+
+    int done = 0;
+    int clock = 0;
+
+    double totalResponse = 0;
+    double totalTurnaround = 0;
+    double totalWait = 0;
+
+    for (int i = 0; i<n; i++){
+        completed[i] = 0;
+        firstRun[i] = -1;
+    }
+    while(done < n)
+    {
+        int chosen = -1;
+        for(int i = 0; i<n; i++)
+        {
+            if(arrivalTime[i] <= clock && completed[i] == 0)
+            {
+                if(chosen == -1 ||
+                burstTime[i] < burstTime[chosen])
+                {
+                chosen = i;
+                }
+            }
+        }
+    }
+
 }
 
 
