@@ -9,9 +9,12 @@ Program 4*/
 int arrivalTime[MAX_PROCESSES];
 int burstTime[MAX_PROCESSES];
 int processCount = 0;
-
-while(scanf("%d%d", &arrivalTime[processCount], &burstTime[processCount]) == 2){
+int main(void){
+while(scanf("%d%d", &arrivalTime[processCount], &burstTime[processCount]) == 2)
+{
     processCount++;
 }
 
-printf("Read %d processes\n", processCount)
+printf("Read %d processes\n", processCount);
+return 0;
+}
