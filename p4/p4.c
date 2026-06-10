@@ -196,7 +196,7 @@ void srtf(int arrivalTime[], int burstTime[], int n)
         totalTurnaround += turnaround;
         totalWait += wait;
     }
-;
+    
     printf("Avg. Resp.:%.2f, Avg. T.A.:%.2f, Avg. Wait:%.2f\n",
            totalResponse / n,
            totalTurnaround / n,
