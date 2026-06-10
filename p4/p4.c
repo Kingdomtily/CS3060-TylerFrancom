@@ -50,6 +50,12 @@ void fcfs(int arrivalTime[], int burstTime[], int n){
     );
 }
 
+void sjf(int arrivalTime[], int burstTime[], int n){
+    int completed[MAX_PROCESSES];
+    int firstRun[MAX_PROCESSES];
+    int finish[MAX_PROCESSES];
+}
+
 
 int main(void){
 while(scanf("%d%d", &arrivalTime[processCount], &burstTime[processCount]) == 2)
@@ -60,6 +66,7 @@ while(scanf("%d%d", &arrivalTime[processCount], &burstTime[processCount]) == 2)
 printf("First come, First serve \n");
 fcfs(arrivalTime, burstTime, processCount);
 printf("Shortest Job First \n");
+sjf(arrivalTime, burstTime, processCount);
 printf("Shortest Remaining Time First\n");
 printf("Rount Robin with Time Quantum of 100 \n");
 return 0;
