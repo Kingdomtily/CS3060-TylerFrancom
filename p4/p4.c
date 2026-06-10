@@ -10,7 +10,15 @@ int arrivalTime[MAX_PROCESSES];
 int burstTime[MAX_PROCESSES];
 int processCount = 0;
 
-void fcfs(int arrivalTime[], int burstTime[], int n);
+void fcfs(int arrivalTime[], int burstTime[], int n){
+    int clock = 0;
+    int firstRun[MAX_PROCESSES];
+    int finish[MAX_PROCESSES];
+
+        for(int i = 0; i < n; i++){
+        firstRun[i] = -1;
+    }
+}
 
 int main(void){
 while(scanf("%d%d", &arrivalTime[processCount], &burstTime[processCount]) == 2)
@@ -19,6 +27,9 @@ while(scanf("%d%d", &arrivalTime[processCount], &burstTime[processCount]) == 2)
 }
 
 fcfs(arrivalTime, burstTime, processCount);
-printf("Read %d processes\n", processCount);
+printf("First come, First serve \n");
+printf("Shortest Job First \n");
+printf("Shortest Remaining Time First\n");
+printf("Rount Robin with Time Quantum of 100 \n");
 return 0;
 }
