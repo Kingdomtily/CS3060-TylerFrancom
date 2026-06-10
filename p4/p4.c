@@ -219,6 +219,34 @@ void rr(int arrivalTime[], int burstTime[], int n)
     double totalTurnaround = 0;
     double totalWait = 0;
 
+    int nextArrival = 0;
+    int quantum = 100;
+
+     for(int i = 0; i < n; i++)
+    {
+        remaining[i] = burstTime[i];
+        firstRun[i] = -1;
+    }
+    while(nextArrival < n && arrivalTime[nextArrival] <= clock)
+    {
+        queue[rear++] = nextArrival;
+        nextArrival++;
+    }
+    while(completed < n)
+    {
+        if(front == rear)
+        {
+            clock = arrivalTime[nextArrival];
+            queue[rear++] = nextArrival;
+            nextArrival++;
+            continue;
+        }
+
+        int current = queue[front++];
+        if(firstRun[current] == -1)
+        {
+            firstRun[current] = clock;
+        }
 }
 
 int main(void){
