@@ -196,13 +196,30 @@ void srtf(int arrivalTime[], int burstTime[], int n)
         totalTurnaround += turnaround;
         totalWait += wait;
     }
-    
+
     printf("Avg. Resp.:%.2f, Avg. T.A.:%.2f, Avg. Wait:%.2f\n",
            totalResponse / n,
            totalTurnaround / n,
            totalWait / n);
 }
 
+void rr(int arrivalTime[], int burstTime[], int n)
+{
+    int remaining[MAX_PROCESSES];
+    int firstRun[MAX_PROCESSES];
+    int finish[MAX_PROCESSES];
+
+    int queue[MAX_PROCESSES * 10];
+    int front = 0, rear = 0;
+
+    int clock = 0;
+    int completed = 0;
+
+    double totalResponse = 0;
+    double totalTurnaround = 0;
+    double totalWait = 0;
+
+}
 
 int main(void){
 while(scanf("%d%d", &arrivalTime[processCount], &burstTime[processCount]) == 2)
@@ -217,5 +234,6 @@ sjf(arrivalTime, burstTime, processCount);
 printf("Shortest Remaining Time First\n");
 srtf(arrivalTime, burstTime, processCount);
 printf("Rount Robin with Time Quantum of 100 \n");
+rr(arrivalTime, burstTime, processCount);
 return 0;
 }
