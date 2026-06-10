@@ -9,12 +9,16 @@ Program 4*/
 int arrivalTime[MAX_PROCESSES];
 int burstTime[MAX_PROCESSES];
 int processCount = 0;
+
+void fcfs(int arrivalTime[], int burstTime[], int n);
+
 int main(void){
 while(scanf("%d%d", &arrivalTime[processCount], &burstTime[processCount]) == 2)
 {
     processCount++;
 }
 
+fcfs(arrivalTime, burstTime, processCount);
 printf("Read %d processes\n", processCount);
 return 0;
 }
