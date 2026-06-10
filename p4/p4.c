@@ -14,17 +14,34 @@ void fcfs(int arrivalTime[], int burstTime[], int n){
     int clock = 0;
     int firstRun[MAX_PROCESSES];
     int finish[MAX_PROCESSES];
+    double responseTime = 0;
+    double turnaroundTime = 0;
+    double waitTime = 0;
 
         for(int i = 0; i < n; i++){
         firstRun[i] = -1;
     }
+    for(int i = 0; i < n; i++){
+        if(clock < arrivalTime[i]){
+            clock = arrivalTime[i];
+        }
+        firstRun[i] = clock;
+        clock += burstTime[i];
+        finish[i] = clock;
+    }
+    for(int i = 0; i < n; i++)
+{
+    responseTime = firstRun[i] - arrivalTime[i];
+    turnaroundTime = finish[i] - arrivalTime[i];
+    waitTime = turnaroundTime - burstTime[i];
 }
-
+}
 int main(void){
 while(scanf("%d%d", &arrivalTime[processCount], &burstTime[processCount]) == 2)
 {
     processCount++;
 }
+
 
 fcfs(arrivalTime, burstTime, processCount);
 printf("First come, First serve \n");
