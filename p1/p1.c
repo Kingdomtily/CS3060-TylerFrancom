@@ -9,10 +9,10 @@ int main(int argc, char *argv[]) {
     printf("Program 1 by Tyler Francom\n");
 
     for (int i = 0; i < argc; i++) {
-        printf("Argument #%d: %s\n", i, argv[i]);
+        printf("Argument #%d:%s\n", i, argv[i]);
     }
 
-    printf("Number of arguments printed: %d\n", argc);
+    printf("Number of arguments printed:%d\n", argc);
 
     return 0;
 }
