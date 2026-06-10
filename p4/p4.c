@@ -241,12 +241,48 @@ void rr(int arrivalTime[], int burstTime[], int n)
             nextArrival++;
             continue;
         }
-
         int current = queue[front++];
         if(firstRun[current] == -1)
         {
             firstRun[current] = clock;
         }
+         int runTime = quantum;
+        if(remaining[current] < quantum)
+        {
+            runTime = remaining[current];
+        }
+        remaining[current] -= runTime;
+        clock += runTime;
+        while(nextArrival < n &&
+              arrivalTime[nextArrival] <= clock)
+        {
+            queue[rear++] = nextArrival;
+            nextArrival++;
+        }
+        if(remaining[current] == 0)
+        {
+            finish[current] = clock;
+            completed++;
+        }
+        else
+        {
+            queue[rear++] = current;
+        }
+    }
+    for(int i = 0; i < n; i++)
+    {
+        int response = firstRun[i] - arrivalTime[i];
+        int turnaround = finish[i] - arrivalTime[i];
+        int wait = turnaround - burstTime[i];
+
+        totalResponse += response;
+        totalTurnaround += turnaround;
+        totalWait += wait;
+    }
+    printf("Avg. Resp.:%.2f, Avg. T.A.:%.2f, Avg. Wait:%.2f\n",
+           totalResponse / n,
+           totalTurnaround / n,
+           totalWait / n);
 }
 
 int main(void){
