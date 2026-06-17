@@ -29,6 +29,23 @@ int producerDone = 0;
 pthread_mutex_t buffer2Mutex = PTHREAD_MUTEX_INITIALIZER;
 
 
+void getFactors(int number, FactorResult *result){
+    result->original = number;
+    result->count =0;
+    while (number%2 ==0){
+        result->factors[result->count++] = 2;
+        number = number/2;
+    }
+    for (int i =3; i*i <=number; i = i+2){
+        while (number % i == 0){
+            result->factors[result->count++] = i;
+            number = number/i;
+        }
+    }
+    if (number > 2)
+    result->factors[result->count++] = number;
+}
+
 void *producer(void *arg)
 {
     while (1)
@@ -100,79 +117,37 @@ void *consumer(void *arg)
     return NULL;
 }
 
-pthread_t producerThread;
-pthread_t consumerThread;
-
-pthread_create(
-    &producerThread,
-    NULL,
-    producer,
-    NULL
-);
-pthread_create(
-    &consumerThread,
-    NULL,
-    consumer,
-    NULL
-);
-
-
-void getFactors(int number, FactorResult *result){
-    result->original = number;
-    result->count =0;
-    while (number%2 ==0){
-        result->factors[result->count++] = 2;
-        number = number/2;
-    }
-    for (int i =3; i*i <=number; i = i+2){
-        while (number % i == 0){
-            result->factors[result->count++] = i;
-            number = number/i;
-        }
-    }
-    if (number > 2)
-    result->factors[result->count++] = number;
-}
-
-void *factorThread(void *arg)
-{
-    int number = *(int *)arg;
-    FactorResult *result =
-        malloc(sizeof(FactorResult));
-    result->count = 0;
-    getFactors(number, result);
-    return result;
-}
 
 int main(int argc, char *argv[]) {
+    pthread_t producerThread;
+    pthread_t consumerThread;
+
     if (argc < 2) {
     printf("Usage:./p3 <number to factor>...\n");
     return 1;
     }
-    int count = argc - 1;
-    pthread_t threads[count];
-    int values[count];
-    for (int i = 0; i < count; i++) {
-    values[i] = atoi(argv[i + 1]);
+
+   pthread_create(
+    &producerThread,
+    NULL,
+    producer,
+    NULL
+    );
     pthread_create(
-        &threads[i],
-        NULL,
-        factorThread,
-        &values[i]
-    );
+    &consumerThread,
+    NULL,
+    consumer,
+    NULL
+); 
+    for (int i = 1; i < argc; i++)
+{
+    pthread_mutex_lock(&buffer1Mutex);
+    numberBuffer[numInBuffer++] = atoi(argv[i]);
+    pthread_mutex_unlock(&buffer1Mutex);
 }
-    for (int i = 0; i < count; i++) {
-    FactorResult *result;
-    pthread_join(
-        threads[i],
-        (void **)&result
-    );
-    printf("%d:", result->original);
-    for (int j = 0; j < result->count; j++) {
-        printf(" %d", result->factors[j]);
-    }
-    printf("\n");
-    free(result);
-    }
+    mainDone = 1;
+
+    pthread_join(producerThread, NULL);
+    pthread_join(consumerThread, NULL);
     return 0;
 }
