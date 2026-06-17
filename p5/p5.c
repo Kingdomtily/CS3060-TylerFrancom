@@ -8,6 +8,12 @@ Program 3*/
 
 #define MAX_ITEMS 1000
 
+typedef struct {
+    int original;
+    int factors[64];
+    int count;
+} FactorResult;
+
 int numberBuffer[MAX_ITEMS];
 
 int numInBuffer = 0;
@@ -109,11 +115,7 @@ pthread_create(
     consumer,
     NULL
 );
-typedef struct {
-    int original;
-    int factors[64];
-    int count;
-} FactorResult;
+
 
 void getFactors(int number, FactorResult *result){
     result->original = number;
@@ -135,14 +137,10 @@ void getFactors(int number, FactorResult *result){
 void *factorThread(void *arg)
 {
     int number = *(int *)arg;
-
     FactorResult *result =
         malloc(sizeof(FactorResult));
-
     result->count = 0;
-
     getFactors(number, result);
-
     return result;
 }
 
