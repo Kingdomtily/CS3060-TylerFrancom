@@ -61,6 +61,54 @@ void *producer(void *arg)
     return NULL;
 }
 
+void *consumer(void *arg)
+{
+    while (1)
+    {
+        FactorResult *result;
+        pthread_mutex_lock(&buffer2Mutex);
+        if (resultCount > 0)
+        {
+            result = resultBuffer[0];
+            for (int i = 1; i < resultCount; i++)
+                resultBuffer[i - 1] = resultBuffer[i];
+            resultCount--;
+            pthread_mutex_unlock(&buffer2Mutex);
+        }
+        else
+        {
+            if (producerDone)
+            {
+                pthread_mutex_unlock(&buffer2Mutex);
+                break;
+            }
+            pthread_mutex_unlock(&buffer2Mutex);
+            continue;
+        }
+        printf("%d:", result->original);
+        for (int i = 0; i < result->count; i++)
+            printf(" %d", result->factors[i]);
+        printf("\n");
+        free(result);
+    }
+    return NULL;
+}
+
+pthread_t producerThread;
+pthread_t consumerThread;
+
+pthread_create(
+    &producerThread,
+    NULL,
+    producer,
+    NULL
+);
+pthread_create(
+    &consumerThread,
+    NULL,
+    consumer,
+    NULL
+);
 typedef struct {
     int original;
     int factors[64];
