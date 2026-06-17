@@ -22,6 +22,45 @@ int producerDone = 0;
 
 pthread_mutex_t buffer2Mutex = PTHREAD_MUTEX_INITIALIZER;
 
+
+void *producer(void *arg)
+{
+    while (1)
+    {
+        int number;
+        pthread_mutex_lock(&buffer1Mutex);
+        if (numInBuffer > 0)
+        {
+            number = numberBuffer[0];
+
+            for (int i = 1; i < numInBuffer; i++){
+                numberBuffer[i - 1] = numberBuffer[i];}
+            numInBuffer--;
+            pthread_mutex_unlock(&buffer1Mutex);
+        }
+        else
+        {
+            if (mainDone)
+            {
+                pthread_mutex_unlock(&buffer1Mutex);
+                break;
+            }
+
+            pthread_mutex_unlock(&buffer1Mutex);
+            continue;
+        }
+
+        FactorResult *result =
+            malloc(sizeof(FactorResult));
+        getFactors(number, result);
+        pthread_mutex_lock(&buffer2Mutex);
+        resultBuffer[resultCount++] = result;
+        pthread_mutex_unlock(&buffer2Mutex);
+    }
+    producerDone = 1;
+    return NULL;
+}
+
 typedef struct {
     int original;
     int factors[64];
