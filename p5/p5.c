@@ -6,6 +6,22 @@ Program 3*/
 #include <stdio.h>
 #include <stdlib.h>
 
+#define MAX_ITEMS 1000
+
+int numberBuffer[MAX_ITEMS];
+
+int numInBuffer = 0;
+int mainDone = 0;
+
+pthread_mutex_t buffer1Mutex = PTHREAD_MUTEX_INITIALIZER;
+
+FactorResult *resultBuffer[MAX_ITEMS];
+
+int resultCount = 0;
+int producerDone = 0;
+
+pthread_mutex_t buffer2Mutex = PTHREAD_MUTEX_INITIALIZER;
+
 typedef struct {
     int original;
     int factors[64];
