@@ -123,7 +123,7 @@ int main(int argc, char *argv[]) {
     pthread_t consumerThread;
 
     if (argc < 2) {
-    printf("Usage:./p3 <number to factor>...\n");
+    printf("Usage:./p5 <number to factor>...\n");
     return 1;
     }
 
