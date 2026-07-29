@@ -46,7 +46,39 @@ int fcfs(const int requests[], int count)
     return totalSeek;
 }
 
-int sstf(int requests[], int count);
+int sstf(const int requests[], int count)
+{
+    int used[MAX_REQUESTS] = {0};
+    int totalSeek = 0;
+    int currentPosition = requests[0];
+    used[0] = 1;
+    for (int completed = 1; completed < count; completed++)
+    {
+        int bestIndex = -1;
+        int shortestDistance = 0;
+
+        for (int i = 1; i < count; i++)
+        {
+            if (used[i] == 0)
+            {
+                int distance =
+                    abs(currentPosition - requests[i]);
+
+                if (bestIndex == -1 ||
+                    distance < shortestDistance)
+                {
+                    bestIndex = i;
+                    shortestDistance = distance;
+                }
+            }
+        }
+        totalSeek += shortestDistance;
+        currentPosition = requests[bestIndex];
+        used[bestIndex] = 1;
+    }
+    return totalSeek;
+}
+
 int look(int requests[], int count);
 int clook(int requests[], int count);
 
