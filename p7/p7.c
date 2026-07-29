@@ -129,5 +129,27 @@ int clook(const int requests[], int count)
 }
 int main(void)
 {
+    int requests[MAX_REQUESTS];
+    int count = 0;
+    while (count < MAX_REQUESTS &&
+           scanf("%d", &requests[count]) == 1)
+    {
+        count++;
+    }
+    if (count == 0)
+    {
+        fprintf(stderr, "No block requests were provided.\n");
+        return 1;
+    }
+    printf("Assignment 7: Block Access Algorithm\n");
+    printf("By: Tyler Francom\n\n");
+    printf("FCFS Total Seek: %d\n",
+           fcfs(requests, count));
+    printf("SSTF Total Seek: %d\n",
+           sstf(requests, count));
+    printf("LOOK Total Seek: %d\n",
+           look(requests, count));
+    printf("C-LOOK Total Seek: %d\n",
+           clook(requests, count));
     return 0;
 }
