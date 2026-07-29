@@ -79,7 +79,25 @@ int sstf(const int requests[], int count)
     return totalSeek;
 }
 
-int look(int requests[], int count);
+int look(const int requests[], int count)
+{
+    int sorted[MAX_REQUESTS];
+    int requestCount = count - 1;
+    int currentPosition = requests[0];
+    int totalSeek = 0;
+    int firstHigher = requestCount;
+    copyArray(requests + 1, sorted, requestCount);
+    sortArray(sorted, requestCount);
+    for (int i = 0; i < requestCount; i++)
+    {
+        if (sorted[i] >= currentPosition)
+        {
+            firstHigher = i;
+            break;
+        }
+    }
+}
+
 int clook(int requests[], int count);
 
 int main(void)
