@@ -11,7 +11,7 @@ void copyArray(const int source[], int destination[], int count)
     }
 }
 
-void sortArrayy(int array[], int count)
+void sortArray(int array[], int count)
 {
     for (int i=0; i < count -1; i++)
     {
