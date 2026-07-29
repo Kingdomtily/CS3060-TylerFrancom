@@ -31,7 +31,21 @@ void sortArrayy(int array[], int count)
         }
     }
 }
-int fcfs(int requests[], int count);
+
+int fcfs(const int requests[], int count)
+{
+    int totalSeek = 0;
+    int currentPosition = requests[0];
+
+    for (int i = 1; i < count; i++)
+    {
+        totalSeek += abs(currentPosition - requests[i]);
+        currentPosition = requests[i];
+    }
+
+    return totalSeek;
+}
+
 int sstf(int requests[], int count);
 int look(int requests[], int count);
 int clook(int requests[], int count);
