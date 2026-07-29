@@ -98,8 +98,35 @@ int look(const int requests[], int count)
     }
 }
 
-int clook(int requests[], int count);
-
+int clook(const int requests[], int count)
+{
+    int sorted[MAX_REQUESTS];
+    int requestCount = count - 1;
+    int currentPosition = requests[0];
+    int totalSeek = 0;
+    int firstHigher = requestCount;
+    copyArray(requests + 1, sorted, requestCount);
+    sortArray(sorted, requestCount);
+    for (int i = 0; i < requestCount; i++)
+    {
+        if (sorted[i] >= currentPosition)
+        {
+            firstHigher = i;
+            break;
+        }
+    }
+    for (int i = firstHigher; i < requestCount; i++)
+    {
+        totalSeek += abs(currentPosition - sorted[i]);
+        currentPosition = sorted[i];
+    }
+    for (int i = 0; i < firstHigher; i++)
+    {
+        totalSeek += abs(currentPosition - sorted[i]);
+        currentPosition = sorted[i];
+    }
+    return totalSeek;
+}
 int main(void)
 {
     return 0;
