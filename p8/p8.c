@@ -61,13 +61,27 @@ static void listDirectory(const char *directoryPath,
     }
 
     closedir(directory);
+    }
 }
-
-
-                          }
                         
-
 int main(int argc, char *argv[])
 {
-    return 0;
+    if (argc > 2)
+    {
+        fprintf(stderr, "Usage: %s [directory]\n", argv[0]);
+        return EXIT_FAILURE;
+    }
+    const char *startingDirectory;
+    if (argc == 2)
+    {
+        startingDirectory = argv[1];
+    }
+    else
+    {
+        startingDirectory = ".";
+    }
+    unsigned long long totalBytes = 0;
+    listDirectory(startingDirectory, &totalBytes, 0);
+    printf("\nTotal file space used:%llu\n", totalBytes);
+    return EXIT_SUCCESS;
 }
