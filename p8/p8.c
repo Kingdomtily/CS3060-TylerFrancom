@@ -11,7 +11,21 @@ static void listDirectory(const char *directoryPath,
                           unsigned long long *totalBytes,
                           int depth)
                           {
+                            {
+    DIR *directory = opendir(directoryPath);
+
+    if (directory == NULL)
+    {
+        perror(directoryPath);
+        return;
+    }
+
+    printf("%*sdir %s\n", depth * 2, "", directoryPath);
+
+    struct dirent *entry;
+
                           }
+                        }
 
 int main(int argc, char *argv[])
 {
