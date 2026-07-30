@@ -7,6 +7,11 @@
 
 #define _GNU_SOURCE
 
+static void listDirectory(const char *directoryPath,
+                          unsigned long long *totalBytes,
+                          int depth)
+                          {
+                          }
 
 int main(int argc, char *argv[])
 {
