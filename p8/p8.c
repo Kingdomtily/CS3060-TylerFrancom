@@ -1,3 +1,7 @@
+#define _GNU_SOURCE
+#define MAX_DEPTH 100
+
+
 #include <dirent.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -5,8 +9,6 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-#define _GNU_SOURCE
-#define MAX_DEPTH 100
 
 if (depth >= MAX_DEPTH)
 {
