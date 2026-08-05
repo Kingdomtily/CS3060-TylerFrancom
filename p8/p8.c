@@ -97,3 +97,14 @@ int main(int argc, char *argv[])
     printf("\nTotal file space used:%llu\n", totalBytes);
     return EXIT_SUCCESS;
 }
+
+
+
+'''security: limit recursive directory depth
+
+Lesson learned:
+IF recursion_depth >= maximum_depth
+    report that the directory is too deeply nested
+    stop processing that branch
+ELSE
+    continue scanning'''
