@@ -6,6 +6,16 @@
 #include <unistd.h>
 
 #define _GNU_SOURCE
+#define MAX_DEPTH 100
+
+if (depth >= MAX_DEPTH)
+{
+    fprintf(stderr,
+            "Maximum directory depth reached at: %s\n",
+            directoryPath);
+    return;
+}
+
 
 static void listDirectory(const char *directoryPath,
                           unsigned long long *totalBytes,
